@@ -1,0 +1,25 @@
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  chatgptComment:
+    runs-on: ubuntu-latest
+    name: Add Comment
+    steps:
+      - name: Add Comment
+        uses: PublicisSapient/devops-chatgpt-comment-pull-request@main
+        with:
+          github-token: ${{ secrets.TOKEN }}
+          open-api-key: ${{ secrets.CHATGPT_API_KEY }}
+          max-prompt-tokens: '10000'
+          ignore-paths: '.github/*, package*.json, .env*'
+          model: 'gpt-3.5-turbo-16k'
+          temperature: 1
+          max-response-tokens: 512
+          top_p: 1
+          frequency-penalty: 0
+          presence-penalty: 1
+          custom-prompt: Review the changes to ensure readability and adherence to Golang best practices. Additionally, check if error handling is robust and if there are any potential security vulnerabilities introduced. Consider these for reviewing the PR - Avoid naked return statements, naming conventions(camel case preferred), line length should be less than 30
