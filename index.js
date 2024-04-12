@@ -10,3 +10,10 @@ const server = http.createServer((req, res) => {
 server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}/`);
 });
+
+// Error handling
+server.on('error', (err) => {
+  console.error('Server error:', err);
+  process.exit(1);
+});
+
